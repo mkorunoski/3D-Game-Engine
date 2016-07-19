@@ -1,0 +1,12 @@
+package com.base.engine;
+
+public class BaseLight
+{	
+	private Vector3f color;
+	private float intensity;
+
+	public BaseLight()
+	{
+			
+	}
+}

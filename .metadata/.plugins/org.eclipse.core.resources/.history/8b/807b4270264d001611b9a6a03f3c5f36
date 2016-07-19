@@ -1,0 +1,11 @@
+package com.base.engine;
+
+public class BasicShader extends Shader
+{
+	public BasicShader()
+	{
+		super();
+		addVertexShader(ResourceLoader.loadShader("basicVertex.vs"));
+		addFragmentShader(ResourceLoader.loadShader("basicFragment.fs"));
+	}	
+}

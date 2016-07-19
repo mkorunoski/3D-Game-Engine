@@ -1,0 +1,6 @@
+package com.base.engine;
+
+public class Vertex
+{
+	private Vector3f position;
+}

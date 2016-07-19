@@ -1,0 +1,11 @@
+package com.base.engine;
+
+public class Vertex
+{
+	private Vector3f position;
+	
+	public Vertex(Vector3f position)
+	{
+		this.position = position;
+	}
+}
