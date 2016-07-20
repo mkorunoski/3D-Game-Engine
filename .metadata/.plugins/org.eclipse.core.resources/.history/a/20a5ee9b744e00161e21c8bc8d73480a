@@ -1,0 +1,19 @@
+package com.base.engine.core;
+
+public interface class GameComponent
+{
+	public void input()
+	{
+		
+	}
+	
+	public void update()
+	{
+		
+	}
+	
+	public void render()
+	{
+		
+	}
+}

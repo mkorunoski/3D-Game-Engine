@@ -1,0 +1,6 @@
+package com.base.engine.game;
+
+public class MeshRenderer
+{
+
+}
