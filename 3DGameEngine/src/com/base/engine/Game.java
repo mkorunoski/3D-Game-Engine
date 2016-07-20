@@ -13,6 +13,9 @@ public class Game
 	PointLight pLight1 = new PointLight(new BaseLight(new Vector3f(1, 0.5f, 0), 0.8f), new Attenuation(0, 0, 1), new Vector3f(-2, 0, 0), 10);
 	PointLight pLight2 = new PointLight(new BaseLight(new Vector3f(0, 0.5f, 1), 0.8f), new Attenuation(0, 0, 1), new Vector3f(2, 0, 0), 10);
 	
+	SpotLight sLight1 = new SpotLight(new PointLight(new BaseLight(new Vector3f(0, 1, 1), 0.8f), new Attenuation(0, 0, 0.1f), new Vector3f(0, 1, 0), 30),
+									 new Vector3f(0, -1, 0), 0.8f);
+
 	public Game()
 	{
 		camera = new Camera();
@@ -20,10 +23,11 @@ public class Game
 		
 		shader = PhongShader.getInstance();
 		PhongShader.setAmbientLight(new Vector3f(0.1f, 0.1f, 0.1f));
-		PhongShader.setDirectionalLight(new DirectionalLight(new BaseLight(new Vector3f(1, 1, 1), 1), new Vector3f(1, 1, 1)));
-		PhongShader.setPointLights(new PointLight[] {pLight1, pLight2});
+		PhongShader.setDirectionalLight(new DirectionalLight(new BaseLight(new Vector3f(1, 1, 1), 0.1f), new Vector3f(1, 1, 1)));
+		PhongShader.setPointLights(new PointLight[] { pLight1, pLight2 });
+		PhongShader.setSpotLights(new SpotLight[]{ sLight1 });
 				
-		mesh = new Mesh();	
+			
 		Vertex[] vertices = new Vertex[]
 		{
 			new Vertex(new Vector3f(-1, 0, -1), new Vector2f(0, 0)),
@@ -44,9 +48,9 @@ public class Game
 			2, 3, 4,
 			3, 0, 4*/
 		};
-		mesh.addVertices(vertices, indices, true);		
+		mesh = new Mesh(vertices, indices, true);
 				
-		material = new Material(ResourceLoader.loadTexture("checkerboard.png"), new Vector3f(1.0f, 1.0f, 1.0f), 1, 256);
+		material = new Material(new Texture("checkerboard.png"), new Vector3f(1.0f, 1.0f, 1.0f), 1, 256);
 		
 		transform = new Transform();
 		Transform.setProjection(70.0f, Window.getWidth(), Window.getHeight(), 0.1f, 1000.0f);		
@@ -69,6 +73,9 @@ public class Game
 		
 		pLight1.setPosition(new Vector3f(2, 0, 8 * (float)(Math.sin(temp))));
 		pLight2.setPosition(new Vector3f(-2, 0, 8 * (float)(Math.cos(temp))));
+		
+		sLight1.getPointLight().setPosition(camera.getPosition());
+		sLight1.setDirection(camera.getForward());
 	}
 	
 	public void render()

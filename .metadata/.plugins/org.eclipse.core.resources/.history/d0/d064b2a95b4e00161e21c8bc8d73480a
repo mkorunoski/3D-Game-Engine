@@ -1,0 +1,9 @@
+package com.base.engine;
+
+public class SpotLight
+{
+	private PointLight pointLight;
+	private Vector3f direction;
+	private float cutoff;
+
+}
