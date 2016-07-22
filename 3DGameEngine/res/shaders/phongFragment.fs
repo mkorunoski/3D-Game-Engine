@@ -48,7 +48,7 @@ struct PointLight
 {
 	BaseLight base;
 	Attenuation atten;
-	vec3 position;
+	vec3 pos;
 	float range;
 };
 uniform PointLight pointLights[MAX_POINT_LIGHTS];
@@ -102,7 +102,7 @@ vec4 calcDirectionalLight(DirectionalLight directionalLight, vec3 normal)
 
 vec4 calcPointLight(PointLight pointLight, vec3 normal)
 {
-	vec3 lightDirection = f_position - pointLight.position;
+	vec3 lightDirection = f_position - pointLight.pos;
 	float distanceToPoint = length(lightDirection);
 
 	if(distanceToPoint > pointLight.range)
@@ -124,7 +124,7 @@ vec4 calcPointLight(PointLight pointLight, vec3 normal)
 
 vec4 calcSpotLight(SpotLight spotLight, vec3 normal)
 {
-	vec3 lightDirection = normalize(f_position - spotLight.pointLight.position);
+	vec3 lightDirection = normalize(f_position - spotLight.pointLight.pos);
 	float spotFactor = dot(lightDirection, spotLight.direction);
 
 	vec4 color = vec4(0, 0, 0, 0);
