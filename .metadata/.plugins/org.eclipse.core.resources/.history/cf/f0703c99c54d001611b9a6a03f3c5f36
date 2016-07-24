@@ -1,8 +1,0 @@
-package com.base.engine;
-
-public class PointLight
-{
-	private BaseLight baseLight;
-	private Attenuation atten;
-	private Vector3f position;
-}

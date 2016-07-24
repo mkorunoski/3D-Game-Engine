@@ -1,8 +1,0 @@
-package com.base.engine;
-
-public class BasicShader extends Shader
-{
-	public BasicShader() {
-		// TODO Auto-generated constructor stub
-	}	
-}

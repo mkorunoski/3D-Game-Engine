@@ -1,8 +1,0 @@
-package com.base.engine;
-
-public class Attenuation
-{
-	private float constant;
-	private float linear;
-	private float exponent;
-}

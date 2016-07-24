@@ -1,8 +1,0 @@
-package com.base.engine.game;
-
-import com.base.engine.core.GameComponent;
-
-public class MeshRenderer extends GameComponent
-{
-
-}
