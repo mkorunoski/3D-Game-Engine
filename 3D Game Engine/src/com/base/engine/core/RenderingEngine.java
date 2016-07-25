@@ -14,6 +14,9 @@ public class RenderingEngine
     private static DirectionalLight directionalLight;
     private static DirectionalLight directionalLight1;
     private static DirectionalLight directionalLight2;
+    private static PointLight pointLight;
+    private static PointLight[] pointLights;
+    private static final int d = 8;
 
     public RenderingEngine()
     {
@@ -29,9 +32,20 @@ public class RenderingEngine
 
         mainCamera = new Camera((float) Math.toRadians(70.0f), (float) Window.getWidth() / (float) Window.getHeight(), 0.1f, 1000.0f);
 
-        ambientLight = new Vector3f(0.2f, 0.2f, 0.2f);
-        directionalLight1 = new DirectionalLight(new BaseLight(new Vector3f(1,0.5f,0), 0.4f), new Vector3f(1,1,1));
-        directionalLight2 = new DirectionalLight(new BaseLight(new Vector3f(0,0.5f,1), 0.4f), new Vector3f(-1,1,-1));
+        ambientLight = new Vector3f(0.01f, 0.01f, 0.01f);
+        directionalLight1 = new DirectionalLight(new BaseLight(new Vector3f(1,0.5f,0), 0.25f), new Vector3f(1,1,1));
+        directionalLight2 = new DirectionalLight(new BaseLight(new Vector3f(0,0.5f,1), 0.25f), new Vector3f(-1,1,-1));
+
+
+        pointLights = new PointLight[d];
+        int index = 0;
+        for(float i = 0; i < 360; i += 360.0f/d)
+        {
+            pointLights[index++] = new PointLight(new BaseLight(
+                    new Vector3f(0.5f, 1, 0.5f), 0.4f),
+                    new Attenuation(0, 0, 1),
+                    new Vector3f(8*(float)Math.sin(Math.toRadians(i)), 0, 8*(float)Math.cos(Math.toRadians(i))), 100);
+        }
     }
 
     public Vector3f getAmbientLight()
@@ -42,6 +56,11 @@ public class RenderingEngine
     public DirectionalLight getDirectionalLight()
     {
         return directionalLight;
+    }
+
+    public PointLight getPointLight()
+    {
+        return pointLight;
     }
 
     private static void clearScreen()
@@ -74,8 +93,10 @@ public class RenderingEngine
 
         Shader forwardAmbient = ForwardAmbient.getInstance();
         Shader forwardDirectional = ForwardDirectional.getInstance();
+        Shader forwardPoint = ForwardPoint.getInstance();
         forwardAmbient.setRenderingEngine(this);
         forwardDirectional.setRenderingEngine(this);
+        forwardPoint.setRenderingEngine(this);
 
         object.render(forwardAmbient);
 
@@ -89,9 +110,16 @@ public class RenderingEngine
         directionalLight = directionalLight2;
         object.render(forwardDirectional);
 
+        for(int i = 0; i < d; ++i)
+        {
+            pointLight = pointLights[i];
+            object.render(forwardPoint);
+        }
+
         glDepthFunc(GL_LESS);
         glDepthMask(true);
         glDisable(GL_BLEND);
+
     }
 
     private static void unbindTextures()

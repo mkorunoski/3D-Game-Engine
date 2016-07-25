@@ -16,12 +16,14 @@ public class TestGame extends Game
         Material materialPlane = new Material(new Texture("checkerboard.png"), new Vector3f(1.0f, 1.0f, 1.0f), 1, 8);
 //        Material materialMonkey = new Material(new Texture("checkerboard.png"), new Vector3f(1.0f, 1.0f, 1.0f), 1, 256);
 
+        int d = 10;
         Vertex[] vertices = new Vertex[]
         {
-            new Vertex(new Vector3f(-10, 0, -10), new Vector2f(0, 0)),
-            new Vertex(new Vector3f(+10, 0, -10), new Vector2f(1, 0)),
-            new Vertex(new Vector3f(+10, 0, +10), new Vector2f(1, 1)),
-            new Vertex(new Vector3f(-10, 0, +10), new Vector2f(0, 1))
+
+            new Vertex(new Vector3f(-d, 0, -d), new Vector2f(0, 0)),
+            new Vertex(new Vector3f(+d, 0, -d), new Vector2f(1, 0)),
+            new Vertex(new Vector3f(+d, 0, +d), new Vector2f(1, 1)),
+            new Vertex(new Vector3f(-d, 0, +d), new Vector2f(0, 1))
         };
         int[] indices = new int[] {2, 1, 0, 3, 2, 0};
         Mesh planeMesh = new Mesh(vertices, indices, true);
