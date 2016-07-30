@@ -21,6 +21,8 @@ public class Vector2f
         return x * r.getX() + y * r.getY();
     }
 
+    public float max() { return Math.max(x, y); }
+
     public float cross(Vector2f r)
     {
         return x * r.getY() - y * r.getX();
@@ -113,8 +115,24 @@ public class Vector2f
         this.y = y;
     }
 
-    public boolean equals(Vector2f r)
+    public Vector2f set(float x, float y)
     {
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
+    public Vector2f set(Vector2f r)
+    {
+        this.x = r.x;
+        this.y = r.y;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        Vector2f r = (Vector2f)obj;
         return (x == r.getX() && y == r.getY());
     }
 }

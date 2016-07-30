@@ -14,7 +14,7 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 /**
- * A simple test state to display an image and rotate it
+ * A simple test state to display an image and initRotation it
  *
  * @author kevin
  */
@@ -25,7 +25,7 @@ public class TestState2 extends BasicGameState {
 	private Font font;
 	/** The image to be display */
 	private Image image;
-	/** The angle we'll rotate by */
+	/** The angle we'll initRotation by */
 	private float ang;
 	/** The game holding this state */
 	private StateBasedGame game;

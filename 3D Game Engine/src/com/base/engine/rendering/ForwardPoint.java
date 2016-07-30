@@ -1,5 +1,7 @@
 package com.base.engine.rendering;
 
+import com.base.engine.components.BaseLight;
+import com.base.engine.components.PointLight;
 import com.base.engine.core.Matrix4f;
 import com.base.engine.core.Transform;
 
@@ -39,35 +41,35 @@ public class ForwardPoint extends Shader
         return instance;
     }
 
-    public void updateUniforms(Transform transform, Material material)
+    public void updateUniforms(Transform transform, Material material, RenderingEngine renderingEngine)
     {
         Matrix4f worldMatrix = transform.getTransformation();
-        Matrix4f projectedMatrix = getRenderingEngine().getMainCamera().getViewProjection().mul(worldMatrix);
-        material.getTexture().bind();
+        Matrix4f projectedMatrix = renderingEngine.getMainCamera().getViewProjection().mul(worldMatrix);
+        material.getTexture("diffuse").bind();
 
         setUniform("model", worldMatrix);
         setUniform("MVP", projectedMatrix);
 
-        setUniform("eyePosition", getRenderingEngine().getMainCamera().getPos());
-        setUniformf("specularIntensity", material.getSpecularIntensity());
-        setUniformf("specularExponent", material.getSpecularExponent());
+        setUniform("eyePosition", renderingEngine.getMainCamera().getTransform().getTransformedPos());
+        setUniformf("specularIntensity", material.getFloat("specularIntensity"));
+        setUniformf("specularExponent", material.getFloat("specularExponent"));
 
-        setUniform("pointLight", getRenderingEngine().getPointLight());
+        setUniformPointLight("pointLight", (PointLight)renderingEngine.getActiveLight());
     }
 
-    private void setUniform(String uniformName, BaseLight baseLight)
+    private void setUniformBaseLight(String uniformName, BaseLight baseLight)
     {
         setUniform(uniformName + ".color", baseLight.getColor());
         setUniformf(uniformName + ".intensity", baseLight.getIntensity());
     }
 
-    private void setUniform(String uniformName, PointLight pointLight)
+    private void setUniformPointLight(String uniformName, PointLight pointLight)
     {
-        setUniform(uniformName + ".base", pointLight.getBase());
-        setUniformf(uniformName + ".atten.constant", pointLight.getAtten().getConstant());
-        setUniformf(uniformName + ".atten.linear", pointLight.getAtten().getLinear());
-        setUniformf(uniformName + ".atten.exponent", pointLight.getAtten().getExponent());
-        setUniform(uniformName + ".position", pointLight.getPosition());
+        setUniformBaseLight(uniformName + ".base", pointLight);
+        setUniformf(uniformName + ".atten.constant", pointLight.getConstant());
+        setUniformf(uniformName + ".atten.linear", pointLight.getLinear());
+        setUniformf(uniformName + ".atten.exponent", pointLight.getExponent());
+        setUniform(uniformName + ".position", pointLight.getTransform().getTransformedPos());
         setUniformf(uniformName + ".range", pointLight.getRange());
     }
 }

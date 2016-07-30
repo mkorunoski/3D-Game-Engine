@@ -1,5 +1,7 @@
 package com.base.engine.core;
 
+import com.base.engine.components.GameComponent;
+import com.base.engine.rendering.RenderingEngine;
 import com.base.engine.rendering.Shader;
 
 import java.util.ArrayList;
@@ -20,18 +22,24 @@ public class GameObject
     public void addChild(GameObject child)
     {
         children.add(child);
+        child.getTransform().setParent(transform);
     }
 
-    public void addComponent(GameComponent component)
+    public GameObject addComponent(GameComponent component)
     {
+        component.setParent(this);
         components.add(component);
+
+        return this;
     }
 
     public void input(float delta)
     {
+        transform.update();
+
         for (GameComponent component : components)
         {
-            component.input(transform, delta);
+            component.input(delta);
         }
 
         for (GameObject child : children)
@@ -44,7 +52,7 @@ public class GameObject
     {
         for (GameComponent component : components)
         {
-            component.update(transform, delta);
+            component.update(delta);
         }
 
         for (GameObject child : children)
@@ -53,16 +61,29 @@ public class GameObject
         }
     }
 
-    public void render(Shader shader)
+    public void render(Shader shader, RenderingEngine renderingEngine)
     {
         for (GameComponent component : components)
         {
-            component.render(transform, shader);
+            component.render(shader, renderingEngine);
         }
 
         for (GameObject child : children)
         {
-            child.render(shader);
+            child.render(shader, renderingEngine);
+        }
+    }
+
+    public void addToRenderingEngine(RenderingEngine renderingEngine)
+    {
+        for (GameComponent component : components)
+        {
+            component.addToRenderingEngine(renderingEngine);
+        }
+
+        for (GameObject child : children)
+        {
+            child.addToRenderingEngine(renderingEngine);
         }
     }
 

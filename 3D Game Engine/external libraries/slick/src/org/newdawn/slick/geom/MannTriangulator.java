@@ -436,7 +436,7 @@ public class MannTriangulator implements Triangulator {
 		 * @return True if this point is infront (in the contour)
 		 */
 		public boolean isInfront(double dx, double dy) {
-			// no nead to normalize, amplitude does not metter for side
+			// no nead to normalized, amplitude does not metter for side
 			// detection
 			boolean sidePrev = ((prev.pt.y - pt.y) * dx + (pt.x - prev.pt.x)
 					* dy) >= 0;

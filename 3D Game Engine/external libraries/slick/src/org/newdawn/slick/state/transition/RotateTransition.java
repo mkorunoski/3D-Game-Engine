@@ -8,7 +8,7 @@ import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
- * A transition that causes the previous state to rotate and scale down into
+ * A transition that causes the previous state to initRotation and scale down into
  * the new state.
  * 
  * This is an enter transition

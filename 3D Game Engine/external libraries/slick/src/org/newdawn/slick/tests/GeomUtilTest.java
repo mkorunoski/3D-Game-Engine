@@ -165,7 +165,7 @@ public class GeomUtilTest extends BasicGame implements GeomUtilListener {
 			throws SlickException {
 		g.drawString("Space - toggle movement of cutting shape",530,10);
 		g.drawString("1,2,3 - select cutting shape",530,30);
-		g.drawString("Mouse wheel - rotate shape",530,50);
+		g.drawString("Mouse wheel - initRotation shape",530,50);
 		g.drawString("Enter - toggle union/subtract",530,70);
 		g.drawString("MODE: "+(union ? "Union" : "Cut"),530,200);
 		
