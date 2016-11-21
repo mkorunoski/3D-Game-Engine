@@ -9,7 +9,7 @@
 -->
 <project name="slick" default="dist" basedir="." xmlns:artifact="urn:maven-artifact-ant">
 	<taskdef name="pack200" classname="com.sun.tools.apache.ant.pack200.Pack200Task" classpath="Pack200Task.jar"/>
-	<path id="maven-ant-tasks.classpath" path="maven/maven-ant-tasks-2.0.9.jar" />
+	<path program="maven-ant-tasks.classpath" path="maven/maven-ant-tasks-2.0.9.jar" />
   	<typedef resource="org/apache/maven/artifact/ant/antlib.xml"
            uri="urn:maven-artifact-ant"
            classpathref="maven-ant-tasks.classpath" />
@@ -91,7 +91,7 @@
 	
 	<artifact:install-provider artifactId="wagon-ssh" version="1.0-beta-2"/>
 	<artifact:deploy file="maven/slick-${version.build}.jar">
-   		<artifact:pom file="maven/slick-${version.build}.pom" id="slick"/>
+   		<artifact:pom file="maven/slick-${version.build}.pom" program="slick"/>
    		<artifact:attach file="maven/slick-${version.build}-sources.jar" classifier="sources"/> 	
 		<artifact:remoteRepository url="scp://bob.newdawnsoftware.com:122/home/kevin/public_html/slick/mavenrepo">
 			<authentication username="${maven.username}" password="${maven.password}" />

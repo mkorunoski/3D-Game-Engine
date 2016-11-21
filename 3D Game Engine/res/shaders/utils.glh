@@ -1,0 +1,6 @@
+void discardFragment(inout vec4 texColor)
+{
+	if(texColor.a < 0.1)
+		discard;
+	texColor.rgb *= smoothstep(0.1, 1.0, texColor.a);
+}

@@ -19,6 +19,7 @@ public class CoreEngine
         this.height = height;
         this.frameTime = 1.0 / framerate;
         this.game = game;
+        game.setEngine(this);
     }
 
     public void createWindow(String title)
@@ -87,7 +88,6 @@ public class CoreEngine
 
                 if (frameCounter >= 1.0)
                 {
-                    System.out.println(frames);
                     frames = 0;
                     frameCounter = 0;
                 }
@@ -118,5 +118,10 @@ public class CoreEngine
     private void cleanUp()
     {
         Window.dispose();
+    }
+
+    public RenderingEngine getRenderingEngine()
+    {
+        return renderingEngine;
     }
 }
